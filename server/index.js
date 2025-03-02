@@ -1,12 +1,15 @@
 const express = require("express");
 const app = express();
 
+const userRouter = require("./routes/userRoutes");
+const carpoolRouter = require("./routes/carpoolRoutes");
+
+//USER ROUTES
+
+app.use('/user',userRouter);
+app.use('/carpools',carpoolRouter);
 
 
-
-app.get("/",(req,res)=>{
-    res.json("yes this is the home page");
-})
 
 
 app.listen(3000,()=>{
