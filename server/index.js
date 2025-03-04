@@ -4,6 +4,8 @@ const app = express();
 const userRouter = require("./routes/userRoutes");
 const carpoolRouter = require("./routes/carpoolRoutes");
 
+app.use(express.json());
+
 //USER ROUTES
 
 app.use('/user',userRouter);
