@@ -1,6 +1,8 @@
+require("dotenv").config();
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-JWT_SECRET = "simpleKey";
+
 
 const userModel = require("../database/db");
 const signupSchema = require ("../validations/authSchemas");
@@ -37,8 +39,34 @@ exports.signup = async (req, res) => {
 };
 
  
-exports.signin = (req,res)=>{
+exports.signin = async (req,res)=>{
    
-    
+        console.log(req.body);
+
+    const {username , password} = (req.body);
+
+    try{
+    const foundUser = await userModel.findOne({
+        username : username
+    })
+
+    if(!foundUser){
+        return res.status(400).json({message : "this user does not exist"});
+    }else{
+        const pass = await bcrypt.compare(password,foundUser.password);
+
+        if(!pass){
+            return res.status(400).json({message : "your password or username is wrong"});
+        }else{
+            const token = await jwt.sign({username : username},process.env.JWT_SECRET);
+            return res.json({
+                message : "you are signed in",
+                token : token
+            });
+        }
+    }
+}catch (error){
+    res.status(500).json({error: "something went wrong"});
+}
 
 }
