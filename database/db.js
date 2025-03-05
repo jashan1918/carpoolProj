@@ -1,15 +1,28 @@
+require("dotenv").config;
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://Jashan:ZfUy8apXhCXbka1p@jashan.vp6vf.mongodb.net/carpoolProj?retryWrites=true&w=majority&appName=Jashan");
+mongoose.connect(process.env.MONGO_URL);
+
 
 const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
 
-    username: String,
-    password: String
-})
+  //here is the schema if the user is a driver
+  isDriver: { type: Boolean, default: false },
+  vehicleDetails: {
+    vehicleType: { type: String },
+    vehicleModel: {type: String},
+    vehicleCapacity: {type: Number},
+    vehicleNumber: { type: String },
+  },
+},
+   {timestamps : true},
+);
 
 // const MyModel = mongoose.model('ModelName', mySchema);
 
-const userModel = mongoose.model('users',userSchema);
+const userModel = mongoose.model("users", userSchema);
 
 module.exports = userModel;
