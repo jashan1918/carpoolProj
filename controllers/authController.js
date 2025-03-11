@@ -115,4 +115,28 @@ exports.getUserProfile = async (req, res) => {
     }
   };
   
+exports.becomeDriver = async (req,res) => {
 
+  try{
+  const requiredFields = ["vehicleType", "vehicleModel", "vehicleCapacity", "vehicleNumber"];
+
+ const allFieldsProvided = requiredFields.every((field) => req.body.vehicleDetails[field] !== undefined);
+
+ if(!allFieldsProvided) {
+  return res.status(400).json({
+    error : "fill up all the fields"
+  })
+ }
+
+  const becameDriver = await userModel.findOneAndUpdate(
+      {username : req.user.username},
+      {$set : req.body.vehicleDetails},
+      {new: true, runValidators : true}
+  )
+  if(becameDriver){
+    return res.json("You are updated to a driver");
+  }
+}catch(error){
+  res.status(500).json({message : "INTERNAL SERVER ERROR"});
+}
+};
