@@ -23,8 +23,20 @@ const userSchema = new mongoose.Schema({
    {timestamps : true},
 );
 
+
+const rideSchema = new mongoose.Schema ({
+
+      driverId : {type : mongoose.Schema.Types.ObjectId, ref : "users" , required : true},
+      pickup : {type : String, required: true},
+      destination : {type : String, required: true},
+      totalSeats : {type : Number, required: true},
+      pricePerSeat : {type : Number, required: true}
+
+})
+
 // const MyModel = mongoose.model('ModelName', mySchema);
 
 const userModel = mongoose.model("users", userSchema);
+const rideModel = mongoose.model("rides", rideSchema);
 
-module.exports = userModel;
+module.exports = { userModel, rideModel };

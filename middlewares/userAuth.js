@@ -11,6 +11,10 @@ const userVerification = (req, res, next) => {
     try {
         const token = req.headers.token;  
 
+        console.log("Received Token:", req.headers.token);
+console.log("Authorization Header:", req.header("Authorization"));
+
+
         if (!token) {
             console.log("No token provided!");
             return res.status(401).json({ error: "No token provided" });
@@ -19,6 +23,8 @@ const userVerification = (req, res, next) => {
         
        const userData =  jwt.verify(token, process.env.JWT_SECRET);
        req.user = userData;
+
+       console.log("Decoded user data:", req.user); // Debugging
 
         console.log("User verified successfully");
         next();  

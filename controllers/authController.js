@@ -3,8 +3,10 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const userModel = require("../database/db");
-const signupSchema = require("../validations/authSchemas");
+const { userModel, rideModel } = require("../database/db");
+const {signupSchema, createRideSchema} = require("../validations/authSchemas");
+
+
 
 const userVerification = require("../middlewares/userAuth");
 
@@ -15,7 +17,7 @@ exports.signup = async (req, res) => {
     const validation = signupSchema.safeParse(req.body);
 
     if (!validation.success) {
-      return res.status(400).json({ message: validation.errors.error });
+      return res.status(400).json({ message: validation.error.errors });
     }
 
     const { username, email, password } = req.body;
@@ -55,10 +57,11 @@ exports.signin = async (req, res) => {
           .status(400)
           .json({ message: "your password or username is wrong" });
       } else {
-        const token = await jwt.sign(
-          { username: username },
+        const token = jwt.sign(
+          { userId: foundUser._id, username: foundUser.username }, 
           process.env.JWT_SECRET
         );
+        
         return res.json({
           message: "you are signed in",
           token: token,
@@ -117,6 +120,9 @@ exports.getUserProfile = async (req, res) => {
   
 exports.becomeDriver = async (req,res) => {
 
+  console.log("REQ.USER:", req.user);
+
+
   try{
   const requiredFields = ["vehicleType", "vehicleModel", "vehicleCapacity", "vehicleNumber"];
 
@@ -130,13 +136,57 @@ exports.becomeDriver = async (req,res) => {
 
   const becameDriver = await userModel.findOneAndUpdate(
       {username : req.user.username},
-      {$set : req.body.vehicleDetails},
-      {new: true, runValidators : true}
+      { 
+        $set: { 
+          vehicleDetails: req.body.vehicleDetails,
+          isDriver: true // Also mark user as a driver
+        }
+      },      {new: true, runValidators : true}
   )
+
+  console.log("Updated User Data:", becameDriver);
+
+
   if(becameDriver){
     return res.json("You are updated to a driver");
   }
 }catch(error){
   res.status(500).json({message : "INTERNAL SERVER ERROR"});
 }
+};
+
+
+exports.createRide = async (req, res) => {
+  try {
+      // Debug what's actually in req.user
+      console.log("Full req.user object:", JSON.stringify(req.user));
+      
+      const requiredFields = ["pickup", "destination", "totalSeats", "pricePerSeat"];
+      const allFieldsProvided = requiredFields.every(field => req.body[field] !== undefined);
+
+      if (!allFieldsProvided) {
+          return res.status(400).json({ message: "Fill all the fields before submitting the data" });
+      }
+
+      // Get the user ID from req.user
+      const userId = req.user.userId;
+      
+      // Verify we have a user ID
+      if (!userId) {
+          return res.status(400).json({ message: "User ID not found in token" });
+      }
+      
+      const createdRide = await rideModel.create({
+          driverId: userId,
+          pickup: req.body.pickup,
+          destination: req.body.destination, 
+          totalSeats: req.body.totalSeats, 
+          pricePerSeat: req.body.pricePerSeat
+      });
+
+      res.status(201).json({ message: "The ride has been created", ride: createdRide });
+  } catch (error) {
+      console.error("Error creating ride:", error);
+      return res.status(500).json({ error: "INTERNAL SERVER ERROR", details: error.message });
+  }
 };
