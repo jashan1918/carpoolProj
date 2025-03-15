@@ -184,9 +184,45 @@ exports.createRide = async (req, res) => {
           pricePerSeat: req.body.pricePerSeat
       });
 
-      res.status(201).json({ message: "The ride has been created", ride: createdRide });
+      res.status(201).json({
+         message: "The ride has been created",
+        rideId: createdRide._id
+      });
   } catch (error) {
       console.error("Error creating ride:", error);
       return res.status(500).json({ error: "INTERNAL SERVER ERROR", details: error.message });
   }
 };
+
+exports.updateRide = async (req,res) => {
+
+
+  try{
+      //fetching the rideId first
+      const rideId = req.params.rideId;
+
+      //getting the information that is to be updated
+      const updates = {};
+
+
+      Object.keys(req.body).forEach((key) => {
+        if (req.body[key] !== null && req.body[key] !== "") {
+            updates[key] = req.body[key];
+        }
+    });
+    
+    const updatingFields = await rideModel.findOneAndUpdate(
+        {_id : rideId},
+        {
+          $set : updates
+        },
+        {new : true , runValidators : true}
+    )
+
+      if(updatingFields){
+        res.status(200).json({message : "ride edited succesfully"})
+      }
+    }catch(error){
+      res.status(500).json({message :"INTERNAL SERVER ERROR", error})
+    }
+}
