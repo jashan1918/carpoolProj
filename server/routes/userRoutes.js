@@ -20,7 +20,7 @@ userRouter.post('/create-ride',userVerification,createRide);
 
 userRouter.patch('/update-ride/:rideId',userVerification,updateRide);
 
-userRouter.delete('/delete-ride/:rideId',deleteRide);
+userRouter.delete('/delete-ride/:rideId',userVerification,deleteRide);
 
 module.exports = userRouter;
 
