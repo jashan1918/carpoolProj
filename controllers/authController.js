@@ -226,3 +226,8 @@ exports.updateRide = async (req,res) => {
       res.status(500).json({message :"INTERNAL SERVER ERROR", error})
     }
 }
+
+exports.deleteRide = async (req,res) => {
+
+  res.send("this is the delete ride Route");
+}
