@@ -1,5 +1,5 @@
 const {Router} = require ("express");
-const {signup,signin,getUserProfile,updateProfile,becomeDriver,createRide,updateRide,deleteRide} = require ("../../controllers/authController");
+const {signup,signin,getUserProfile,updateProfile,becomeDriver,createRide,updateRide,deleteRide,bookingRide} = require ("../../controllers/authController");
 
 const userVerification = require ('../../middlewares/userAuth');
 
@@ -21,6 +21,8 @@ userRouter.post('/create-ride',userVerification,createRide);
 userRouter.patch('/update-ride/:rideId',userVerification,updateRide);
 
 userRouter.delete('/delete-ride/:rideId',userVerification,deleteRide);
+
+userRouter.post('/booking-ride/:rideId',userVerification,bookingRide);
 
 module.exports = userRouter;
 

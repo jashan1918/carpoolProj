@@ -3,7 +3,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const { userModel, rideModel } = require("../database/db");
+const { userModel, rideModel, bookingModel } = require("../database/db");
 const {
   signupSchema,
   createRideSchema,
@@ -239,23 +239,76 @@ exports.updateRide = async (req, res) => {
 };
 
 exports.deleteRide = async (req, res) => {
+  try {
+    const { rideId } = req.params; // Get ride ID from request params
 
- 
-      try {
-          const { rideId } = req.params; // Get ride ID from request params
-  
-          // Check if ride exists
-          const ride = await rideModel.findById(rideId);
-          if (!ride) {
-              return res.status(404).json({ message: "Ride not found" });
-          }
-  
-          // Delete the ride
-          await rideModel.findByIdAndDelete(rideId);
-  
-          res.status(200).json({ message: "Ride deleted successfully" });
-      } catch (error) {
-          res.status(500).json({ message: "Server error", error: error.message });
-      }
-  };
+    // Check if ride exists
+    const ride = await rideModel.findById(rideId);
+    if (!ride) {
+      return res.status(404).json({ message: "Ride not found" });
+    }
 
+    // Delete the ride
+    await rideModel.findByIdAndDelete(rideId);
+
+    res.status(200).json({ message: "Ride deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+exports.bookingRide = async (req, res) => {
+
+  try{
+  //fetch the rideID
+  const rideId = req.params.rideId;
+  const numOfSeats = parseInt(req.body.numSeats, 10);
+
+  const userId = req.user.userId;
+
+  if(!numOfSeats || numOfSeats === null || numOfSeats === 0){
+    return res.status(400).json({error : "Invalid number of seats"})
+  }
+
+  const rideExists = await rideModel.findById(rideId);
+  if (!rideExists) {
+    return res.status(404).json({ error: "the ride doesnt exist" });
+  }
+  if (rideExists.totalSeats < numOfSeats) {
+    return res
+      .status(400)
+      .json({ error: `only ${rideExists.totalSeats} are available` });
+  }
+
+  const pricePerSeat = rideExists.pricePerSeat;
+  const totalPrice = numOfSeats * pricePerSeat;
+
+ const rideBooked =  await bookingModel.create({
+    rideId: rideId,
+    passengerId: userId,
+    driverId: rideExists.driverId,
+    numSeats: numOfSeats,
+    pricePerSeat: pricePerSeat,
+    totalPrice: totalPrice,
+    status: "pending",
+  });
+
+  if(rideBooked){
+    await rideModel.findByIdAndUpdate(
+      rideId,
+      {$inc : {totalSeats: -numOfSeats} },
+      {new : true, runValidators : true}
+    )
+
+    await bookingModel.findByIdAndUpdate(
+      rideBooked._id,
+      { status: "booked" }, 
+      { new: true }
+    );
+  }
+
+  res.json({ message: "your ride has been booked" });
+}catch(error){
+  return res.status(500).json({error : "INTERNAL SERVER ERROR",error})
+}
+};
