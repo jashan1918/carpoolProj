@@ -75,9 +75,10 @@ exports.signin = async (req, res) => {
 };
 
 exports.getUserProfile = async (req, res) => {
-  const foundUser = await userModel.findOne({
-    username: req.user.username,
-  });
+
+ const userId = req.user.userId;
+
+  const foundUser = await userModel.findById(userId);
 
   if (!foundUser) {
     return res.status(400).json({ message: "something went wrong" });
@@ -299,16 +300,15 @@ exports.bookingRide = async (req, res) => {
       {$inc : {totalSeats: -numOfSeats} },
       {new : true, runValidators : true}
     )
-
-    await bookingModel.findByIdAndUpdate(
-      rideBooked._id,
-      { status: "booked" }, 
-      { new: true }
-    );
   }
 
   res.json({ message: "your ride has been booked" });
 }catch(error){
   return res.status(500).json({error : "INTERNAL SERVER ERROR",error})
 }
+};
+
+exports.confirmBooking = async (req,res) => {
+
+  res.send("this is the confirm booking endpoint");
 };
