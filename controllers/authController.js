@@ -170,6 +170,7 @@ exports.createRide = async (req, res) => {
       "destination",
       "totalSeats",
       "pricePerSeat",
+      "date"
     ];
     const allFieldsProvided = requiredFields.every(
       (field) => req.body[field] !== undefined
@@ -195,6 +196,7 @@ exports.createRide = async (req, res) => {
       destination: req.body.destination,
       totalSeats: req.body.totalSeats,
       pricePerSeat: req.body.pricePerSeat,
+      date: req.body.date
     });
 
     res.status(201).json({
@@ -370,4 +372,9 @@ exports.cancelBooking = async (req,res) => {
       }catch(error){
         return res.status(500).json({error : "INTERNAL SERVER ERROR", message : error.message})
       }
+}
+
+exports.searchRides = async (req,res) => {
+
+    const {from , where} = req.query.URL
 }

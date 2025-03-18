@@ -10,7 +10,8 @@ const {
   deleteRide,
   bookingRide,
   confirmBooking,
-  cancelBooking
+  cancelBooking,
+  searchRides
 } = require("../../controllers/authController");
 
 const userVerification = require("../../middlewares/userAuth");
@@ -39,5 +40,7 @@ userRouter.post("/booking-ride/:rideId", userVerification, bookingRide);
 userRouter.put("/confirm-booking/:bookingId",userVerification, checkDriver, confirmBooking);
 
 userRouter.delete("/cancel-booking/:bookingId",userVerification, cancelBooking);
+
+userRouter.get("/search-rides")
 
 module.exports = userRouter;

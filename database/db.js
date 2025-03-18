@@ -30,7 +30,8 @@ const rideSchema = new mongoose.Schema ({
       pickup : {type : String, required: true},
       destination : {type : String, required: true},
       totalSeats : {type : Number, required: true},
-      pricePerSeat : {type : Number, required: true}
+      pricePerSeat : {type : Number, required: true},
+      date : {type : Date, required :true}
 
 })
 
