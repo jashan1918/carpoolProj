@@ -310,5 +310,33 @@ exports.bookingRide = async (req, res) => {
 
 exports.confirmBooking = async (req,res) => {
 
-  res.send("this is the confirm booking endpoint");
+  try{
+    const bookingId = req.params.bookingId;
+
+      const statusCheck = await bookingModel.findById(bookingId);
+
+      if(!statusCheck){
+        return res.status(404).json({error : "this ride doesnt exist"})
+      }
+      if(statusCheck.status === "booked"){
+        return res.status(400).json({message : "The ride is already booked"})
+      }
+      if(statusCheck.status === "cancelled") {
+        return res.status(400).json({message : "the ride has been cancelled"})
+      }
+
+      const rideBooked = await bookingModel.findByIdAndUpdate(
+         bookingId,
+        {$set : {status : "booked"}},
+        {new : true, runValidators : true}
+      )
+
+      if(!rideBooked){
+          return res.status(404).json({error : "error occured! Please try again later"})
+      } else{
+        return res.status(200).json({message : "the ride has been booked succesfully"});
+      }
+    }catch(error){
+      return res.status(500).json({error : "INTERNAL ERROR OUCCURED"})
+    }
 };

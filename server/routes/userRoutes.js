@@ -14,6 +14,8 @@ const {
 
 const userVerification = require("../../middlewares/userAuth");
 
+const checkDriver = require('../../middlewares/verifyDriver');
+
 const userRouter = Router();
 
 userRouter.post("/signup", signup);
@@ -33,6 +35,6 @@ userRouter.delete("/delete-ride/:rideId", userVerification, deleteRide);
 
 userRouter.post("/booking-ride/:rideId", userVerification, bookingRide);
 
-userRouter.put("/confirm-bookig/:bookingId", confirmBooking);
+userRouter.put("/confirm-booking/:bookingId",userVerification, checkDriver, confirmBooking);
 
 module.exports = userRouter;
