@@ -340,3 +340,34 @@ exports.confirmBooking = async (req,res) => {
       return res.status(500).json({error : "INTERNAL ERROR OUCCURED"})
     }
 };
+
+exports.cancelBooking = async (req,res) => { 
+
+  try{
+      const bookingId = req.params.bookingId;
+
+      const bookingCancelled = await bookingModel.findByIdAndUpdate(
+        bookingId,
+        {$set : {status : "cancelled"}},
+        {new : true, runValidators : true}
+      )
+        if(!bookingCancelled){
+          return res.status(404).json({message : "the booking doesnt exist"})
+        }
+          rideId = bookingCancelled.rideId;
+          numSeats = bookingCancelled.numSeats;
+
+        const addingSeats = await rideModel.findByIdAndUpdate(
+          rideId,
+          {$inc : {totalSeats : +numSeats}},
+          {new : true, runValidators : true}
+          
+        )
+
+        if(addingSeats){
+          return res.status(200).json({message : "the ride has been cancelled"})
+        }
+      }catch(error){
+        return res.status(500).json({error : "INTERNAL SERVER ERROR", message : error.message})
+      }
+}
