@@ -27,11 +27,11 @@ userRouter.patch("/update-profile", userVerification, updateProfile);
 
 userRouter.put("/become-driver", userVerification, becomeDriver);
 
-userRouter.post("/create-ride", userVerification, createRide);
+userRouter.post("/create-ride", userVerification, checkDriver, createRide);
 
-userRouter.patch("/update-ride/:rideId", userVerification, updateRide);
+userRouter.patch("/update-ride/:rideId", userVerification, checkDriver, updateRide);
 
-userRouter.delete("/delete-ride/:rideId", userVerification, deleteRide);
+userRouter.delete("/delete-ride/:rideId", userVerification, checkDriver, deleteRide);
 
 userRouter.post("/booking-ride/:rideId", userVerification, bookingRide);
 
