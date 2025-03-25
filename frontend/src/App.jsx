@@ -1,11 +1,14 @@
 import './App.css'
 
+import Signup from "../Pages/signup/signup"
+import Login from "../Pages/login/login"
+
 function App() {
  
 
   return (
     <>
-     <div className='bg-red-400'>HELLO</div>
+    <Login />
     </>
   )
 }
