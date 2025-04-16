@@ -3,7 +3,7 @@ import "./Footer.css";
 const Footer = () => {
   return (
     <div>
-      <footer class="bg-black text-white py-6 mt-50">
+      <footer class="bg-black text-white py-6 mt-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="mb-4 md:mb-0">
@@ -30,7 +30,6 @@ const Footer = () => {
     </div>
   </div>
 </footer>
-
     </div>
   )
 }

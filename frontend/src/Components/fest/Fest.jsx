@@ -1,20 +1,20 @@
 import React from 'react'
-import "./Spots.css";
-const Spots = () => {
+import "./Fest.css";
+const Fest = () => {
   return (
     <div>
-        <h1 className='text-5xl font-bold mt-20 ml-20'>Trending Spots</h1>
+        <h1 className='text-5xl font-bold mt-40 ml-20'>Upcoming Events</h1>
     <div className='flex gap-6 '> 
         {/* card1 */}
        <div className="left-10 top-20 relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-xl">
-      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://images.unsplash.com/photo-1650290843637-b2bb828d2481?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDJ8fGxhZGFraCUyMHJvYWRzfGVufDB8fDB8fHww" alt="" />
+      <div className="relative mx-4 -mt-6 h-36 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-contain"> <img src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-mehfil-e-sartaaj-shimla-0-2025-1-21-t-6-42-54.jpg" alt="" />
       </div>
       <div className="p-6">
         <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-        Leh-Ladakh, Jammu & Kashmir
+        Music Show
         </h5>
         <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-        Known for its breathtaking landscapes, including rugged mountains and serene monasteries, Ladakh is perfect for adventure seekers and those looking to experience unique Tibetan culture. 
+        Sartaaj is on the road most of the time kicking off his creative projects.Currently he is promoting his signing on the Rukus Avenue music label. Don't miss the oppurtunity to catch up with him on tour.
         </p>
       </div>
       <div className="p-6 pt-0">
@@ -25,14 +25,14 @@ const Spots = () => {
     </div>
     {/* card2 */}
     <div className="left-10 top-20 relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-xl">
-      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://plus.unsplash.com/premium_photo-1697729439457-85d4b9d3a2cb?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cmlzaGlrZXNofGVufDB8fDB8fHww" alt="" />
+      <div className="relative mx-4 -mt-6 h-36 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://assets-in.bmscdn.com/nmcms/events/banner/mobile/media-mobile-rambo-circus-group-page-0-2025-2-5-t-14-37-3.jpg" alt="" />
       </div>
       <div className="p-6">
         <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-          Rishikesh, Uttarakhand
+         Rambo Circus
         </h5>
         <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-        Dubbed the 'Yoga Capital of the World,' Rishikesh offers spiritual retreats along the Ganges River and serves as a gateway to the Himalayas, attracting both pilgrims and adventure tourists.Rishikesh is also a hub for adventure sports.
+        A total family entertainer which always takes lead in entertainment and creating a new acts.For the first time in mall with 90 minutes of mesmerizing circus acts which includes roller skating, ladder balance.
         </p>
       </div>
       <div className="p-6 pt-0">
@@ -43,14 +43,15 @@ const Spots = () => {
     </div>
     {/* card3 */}
     <div className="left-10 top-20 relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-xl">
-      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://plus.unsplash.com/premium_photo-1661963054563-ce928e477ff3?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8amFpcHVyfGVufDB8fDB8fHww" alt="" />
+      <div className="relative mx-4 -mt-6 h-36 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-rajasthan-royals-vs-punjab-kings-0-2025-4-5-t-15-9-15.jpg" alt="" />
       </div>
       <div className="p-6">
         <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-        Jaipur, Rajasthan
+        Rajasthan ROYALS VS punjab KINGS 
         </h5>
         <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-        Known as the 'Pink City,' Jaipur boasts historic forts, palaces, and vibrant markets, offering a glimpse into India's royal heritage and architectural grandeur.Jaipur is also famous for its vibrant festivals, including the Jaipur Literature Festival and Teej ​        </p>
+        Rajasthan ROYALS face off against punjab KINGS, and it's more than just a match - it's a battle we take on together.Every wicket we roar. Every moment we live with you.
+               </p>
       </div>
       <div className="p-6 pt-0">
         <button data-ripple-light="true" type="button" className="select-none rounded-lg bg-blue-500 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
@@ -60,14 +61,14 @@ const Spots = () => {
     </div>
     {/* card4 */}
     <div className="left-10 top-20 relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-xl">
-      <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://media.istockphoto.com/id/124688183/photo/taj-mahal-and-its-reflection-in-pool-hdr.webp?a=1&b=1&s=612x612&w=0&k=20&c=9e8_7WK6l7ZaQJsdCrOIFv5VNyvzRigos8Vq-nV-sV0=" alt="" />
+      <div className="relative mx-4 -mt-6 h-36 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg object-fill"> <img src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-gobindgarh-fort-0-2024-5-31-t-12-31-0.jpg" alt="" />
       </div>
       <div className="p-6">
         <h5 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-        Agra, Uttar Pradesh
+        Gobindgarh Fort
         </h5>
         <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-        Home to the iconic Taj Mahal, Agra offers rich Mughal history and architectural marvels, making it a must-visit for history enthusiasts.Agra is not just about the Taj Mahal; it also boasts other architectural marvels like Agra Fort and Fatehpur Sikri.
+        Gobindgarh Fort - the very symbol of Punjab.A character of times when punjab was forged. Spread across a grand 43 acres, right in the heart of Amritsar city.Now finally, it open it's gates to the people of Punjab.
         </p>
       </div>
       <div className="p-6 pt-0">
@@ -81,4 +82,4 @@ const Spots = () => {
   )
 }
 
-export default Spots
+export default Fest

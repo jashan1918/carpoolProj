@@ -17,7 +17,7 @@ function Signup() {
       <div className="!w-[900px] !h-[550px] !flex !bg-white !shadow-lg !rounded-lg !overflow-hidden">
         <div
           className="!w-1/2 !bg-cover !bg-center !hidden md:!block !m-3 !rounded-lg !shadow-xl"
-          style={{ backgroundImage: "url('/pexels-ekrulila-4568137.jpg')" }}
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1610831176233-ff0dbf203815?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG9sZCUyMGNhcnN8ZW58MHx8MHx8fDA%3D')" }}
         ></div>
 
         <div className="!w-1/2 !bg-white !text-center !text-[#333333] !flex !flex-col !justify-center !px-8">

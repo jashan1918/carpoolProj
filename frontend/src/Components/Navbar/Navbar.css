@@ -1,7 +1,15 @@
 .navbar {
-  background: rgba(179, 179, 179, 0.2); 
-  backdrop-filter: blur(13px); /* Optional: Glass effect */
+  background: #263243; 
+  backdrop-filter: blur(13px); 
+}/* Optional: Glass effect
+ 
+ /* .navbar {
+  background-color: #1f2937;
+  color: #f9fafb;
 }
+.navbar a:hover {
+  color: #3b82f6;
+} */
 
 button {
   --primary-color:rgb(57, 149, 255);
