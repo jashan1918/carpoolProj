@@ -3,7 +3,7 @@ import "./Ride.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import FilterSidebar from '../../Components/Filter';
 import Footer from '../../Components/Footer/Footer';
-import Cardicons from '../../Components/cardicons';
+import Cardicons from '../../Components/Cardicons.jsx';
 
 const Ride = () => {
  
