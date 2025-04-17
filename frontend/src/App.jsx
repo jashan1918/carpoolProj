@@ -6,7 +6,7 @@ import Homepage from './Pages/Homepage'
 import Ride from './Pages/Ride/Ride'
 import Login from './Pages/login/login'
 import Signup from './Pages/signup/signup'
-
+import Drive from './Pages/Drive/Drive'
 
 function App() {
  
@@ -16,6 +16,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/Ride" element={<Ride />} />
+      <Route path="/Drive" element={<Drive/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
     </Routes>
