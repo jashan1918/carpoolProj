@@ -8,6 +8,37 @@ import Navbar from "../../Components/Navbar/Navbar";
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
+    const [loginData, setLoginData] = useState({
+        username: "",
+        password: ""
+    })
+
+   async function handleLogin(e) {
+
+    try{
+    const response = await fetch("http://localhost:3000/user/signin",{
+
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData)
+    })
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("Server response:", data);
+      alert("Siginin failed: " + (data.message || "Unknown error"));
+      return;
+    }
+
+    alert("Signup successful!");
+  } catch (err) {
+    console.error("Error caught:", err);
+    alert("Something went wrong, please try again");
+  }
+
+    }
+
+
     return (
 
         <>   
@@ -24,8 +55,13 @@ function Login() {
 
                     <form className="!flex !flex-col !space-y-4">
                         <input
-                            type="email"
-                            placeholder="E-mail"
+                            type="username"
+                            placeholder="Username"
+                            value={loginData.username}
+                            onChange={(e) => {
+                                setLoginData({...loginData, username: e.target.value})
+                            }}
+
                             className="!border !border-gray-300 !p-3 !rounded-md !bg-gray-100 !shadow-sm focus:!border-[#00A693] !outline-none !transition"
                         />
 
@@ -33,6 +69,11 @@ function Login() {
                             <input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
+                                value={loginData.password}
+                                onChange={(e) => {
+                                    setLoginData({...loginData, password: e.target.value})
+                                }}
+
                                 className="!border !border-gray-300 !p-3 !rounded-md !bg-gray-100 !shadow-sm focus:!border-[#00A693] !outline-none !w-full !transition"
                             />
                             <button
@@ -45,7 +86,9 @@ function Login() {
                         </div>
                     </form>
 
-                    <button className="!w-full !mt-5 !text-xl !bg-[#00A693] !text-white !font-semibold !py-3 !rounded-md !shadow-md hover:!bg-[#008977] !transition !duration-300 !flex !justify-center !items-center">
+                    <button
+                    onClick={handleLogin}
+                    className="!w-full !mt-5 !text-xl !bg-[#00A693] !text-white !font-semibold !py-3 !rounded-md !shadow-md hover:!bg-[#008977] !transition !duration-300 !flex !justify-center !items-center">
                         Login
                     </button>
                     <p className="!mt-5">Doesn't have an account?</p>
