@@ -8,6 +8,40 @@ import Navbar from "../../Components/Navbar/Navbar";
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSignup = async (e) => {
+      e.preventDefault();
+
+      try{
+      const response = await fetch("http://localhost:3000/user/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.log("Server response:", data);
+        alert("Signup failed: " + (data.message || "Unknown error"));
+        return;
+      }
+  
+      alert("Signup successful!");
+    } catch (err) {
+      console.error("Error caught:", err);
+      alert("Something went wrong, please try again");
+    }
+      
+
+  }
+  
+  
+
   return (
 
     <>
@@ -27,12 +61,22 @@ function Signup() {
             <input
               type="text"
               placeholder="Username"
+              value={formData.username}
+              onChange={(e) => {
+                setFormData({ ...formData, username: e.target.value })
+              }}
+
               className="!border !border-gray-300 !p-3 !rounded-md !bg-gray-100 !shadow-sm focus:!border-[#00A693] !outline-none !transition"
             />
 
             <input
               type="email"
               placeholder="E-mail"
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value })
+              }}
+
               className="!border !border-gray-300 !p-3 !rounded-md !bg-gray-100 !shadow-sm focus:!border-[#00A693] !outline-none !transition"
             />
 
@@ -40,10 +84,16 @@ function Signup() {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={formData.password}
+                onChange={(e) => {
+                  setFormData({...formData, password: e.target.value})
+                }}
+
                 className="!border !border-gray-300 !p-3 !rounded-md !bg-gray-100 !shadow-sm focus:!border-[#00A693] !outline-none !w-full !transition"
               />
               <button
                 type="button"
+
                 className="!absolute !inset-y-0 !right-3 !flex !items-center !mt-1 !text-gray-500 hover:!text-[#00A693] !p-0 !bg-transparent !border-none"
                 onClick={() => setShowPassword(!showPassword)}
               >
@@ -52,7 +102,9 @@ function Signup() {
             </div>
           </form>
 
-          <button className="!w-full !mt-5 !bg-[#00A693] !text-white !items-center !justify-center !font-semibold !py-3 !rounded-md !shadow-md hover:!bg-[#008977] !transition !duration-300">
+          <button 
+          onClick={handleSignup}
+          className="!w-full !mt-5 !bg-[#00A693] !text-white !items-center !justify-center !font-semibold !py-3 !rounded-md !shadow-md hover:!bg-[#008977] !transition !duration-300">
             Sign Up
           </button>
           <p className="!mt-5">Already have an account?</p>
