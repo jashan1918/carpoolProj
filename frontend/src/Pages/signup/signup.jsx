@@ -15,30 +15,30 @@ function Signup() {
   });
 
   const handleSignup = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      try{
-      const response = await fetch("http://localhost:3000/user/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
+    try{
+    const response = await fetch("http://localhost:3000/user/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
 
-      if (!response.ok) {
-        console.log("Server response:", data);
-        alert("Signup failed: " + (data.message || "Unknown error"));
-        return;
-      }
-  
-      alert("Signup successful!");
-    } catch (err) {
-      console.error("Error caught:", err);
-      alert("Something went wrong, please try again");
+    if (!response.ok) {
+      console.log("Server response:", data);
+      alert("Signup failed: " + (data.message || "Unknown error"));
+      return;
     }
-      
 
+    alert("Signup successful!");
+  } catch (err) {
+    console.error("Error caught:", err);
+    alert("Something went wrong, please try again");
   }
+    
+
+}
   
   
 
