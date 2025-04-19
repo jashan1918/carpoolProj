@@ -71,6 +71,12 @@ const Navbar = () => {
   </button>
 </NavLink>
 
+<NavLink to="/becomeDriver">
+  <button className="ml-4 bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-6 rounded-md transition duration-300 transform hover:scale-105 focus:outline-none focus:shadow-outline">
+    Become Driver
+  </button>
+</NavLink>
+
           </div>
         </div>
       </div>

@@ -30,7 +30,18 @@ function Login() {
       return;
     }
 
-    alert("Signup successful!");
+
+
+    // **HERE'S WHERE YOU STORE THE TOKEN FROM THE BACKEND RESPONSE**
+    if (data && data.token) {
+        localStorage.setItem('authToken', data.token);
+        alert("Login successful!");
+        // Redirect the user to a protected page
+        // navigate('/dashboard');
+      } else {
+        alert("Login successful, but no token received from the server.");
+        console.error("No token in login response:", data);
+      }
   } catch (err) {
     console.error("Error caught:", err);
     alert("Something went wrong, please try again");

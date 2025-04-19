@@ -7,6 +7,7 @@ import Ride from './Pages/Ride/Ride'
 import Login from './Pages/login/login'
 import Signup from './Pages/signup/signup'
 import Drive from './Pages/Drive/Drive'
+import BecomeDriver from './Pages/becomeDriver/becomeDriver.jsx'
 
 function App() {
  
@@ -19,6 +20,7 @@ function App() {
       <Route path="/Drive" element={<Drive/>}/>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/becomeDriver" element={<BecomeDriver />} />
     </Routes>
   
     </>
